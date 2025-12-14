@@ -1,0 +1,28 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Подключение к SQLite -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:cpu_emulator.db</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+
+
+        <!-- Диалект -->
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+
+        <!-- Логи -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Автоматическое создание/обновление таблиц -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.autocommit">true</property>
+
+        <!-- Маппинг сущностей -->
+        <mapping class="org.example.javalab4.ProgramEntity"/>
+        <mapping class="org.example.javalab4.CommandEntity"/>
+
+    </session-factory>
+</hibernate-configuration>

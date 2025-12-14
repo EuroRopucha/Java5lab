@@ -17,8 +17,7 @@ module org.example.javalab4 {
     // SLF4J
     requires org.slf4j;
 
-    opens org.example.javalab4 to javafx.fxml, hibernate.core;
-    opens org.example.javalab5.entity to hibernate.core;
+    opens org.example.javalab4 to javafx.fxml, org.hibernate.orm.core;
 
     exports org.example.javalab4;
 }
