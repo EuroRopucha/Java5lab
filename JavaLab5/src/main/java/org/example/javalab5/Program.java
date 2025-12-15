@@ -75,6 +75,7 @@ public class Program implements Iterable<Command>{
     private void event() {
         observers.forEach(action->action.event());
     }
+
     public void moveUp(Command c) {
         int index = commands.indexOf(c);
         if (index > 0) {

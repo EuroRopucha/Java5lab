@@ -24,15 +24,26 @@ public class MainFrameController implements IObserver {
     GridPane memoryGrid;
     @FXML
     GridPane statsGrid;
-
     @FXML
     void initialize() {
         program.addListener(this);
         // загрузка команд из базы при старте
         ProgramDAO dao = new ProgramDAO();
+
         for (ProgramEntity pe : dao.getAllCommands()) {
-            Command c = new Command(pe.getOpcode(), pe.getArg1(), pe.getArg2());
-            program.add(c);
+            String arg1 = (pe.getArg1() != null) ? pe.getArg1() : "";
+            String arg2 = (pe.getArg2() != null) ? pe.getArg2() : "";
+
+            String cmdText = pe.getOpcode()
+                    + (arg1.isEmpty() ? "" : " " + arg1)
+                    + (arg2.isEmpty() ? "" : " " + arg2);
+            try {
+                Command c = new Command(cmdText);
+                program.add(c);
+            } catch (CpuException e) {
+                System.err.println("Ошибка при загрузке команды из базы: " + cmdText);
+                e.printStackTrace();
+            }
         }
         refreshUI();
     }

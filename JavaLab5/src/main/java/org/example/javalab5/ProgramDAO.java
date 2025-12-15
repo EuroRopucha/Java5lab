@@ -6,21 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramDAO {
+    private Session session = null;
+    private Transaction transaction = null;
 
     // получить все команды из таблицы
     public List<ProgramEntity> getAllCommands() {
         List<ProgramEntity> result = new ArrayList<>();
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+            List<ProgramEntity> entities = session.createQuery("FROM ProgramEntity", ProgramEntity.class)
+                    .getResultList();
+            result.addAll(entities);
 
-            result.addAll(
-                    session.createQuery("FROM ProgramEntity", ProgramEntity.class)
-                            .getResultList()
-            );
-
-            tx.commit();
+            transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
         return result;
@@ -28,23 +30,47 @@ public class ProgramDAO {
 
     // добавить команду
     public void add(ProgramEntity command) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
             session.persist(command);
-            tx.commit();
+
+            transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
     }
 
-    // очистить таблицу
+    // удалить все команды
     public void clearAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
             session.createQuery("DELETE FROM ProgramEntity").executeUpdate();
-            tx.commit();
+
+            transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    // удалить конкретную команду
+    public void remove(ProgramEntity command) {
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+            session.remove(command);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
     }
 }
+

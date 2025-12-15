@@ -16,6 +16,7 @@ public class Command {
         this.command = typeCommand.valueOf(command);
         this.arg1 = arg1;
         this.arg2 = arg2;
+
         this.name = typeCommand.valueOf(command).name() + " " + arg1 + " " + arg2;
     }
 
