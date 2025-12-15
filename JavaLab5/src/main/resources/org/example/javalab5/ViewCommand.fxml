@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minWidth="50.0" prefHeight="39.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeCommand" prefHeight="25.0" prefWidth="25.0" text="X" />
+      <Button layoutX="47.0" layoutY="7.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="25.0" prefWidth="25.0" text="&lt;" />
+      <Button layoutX="79.0" layoutY="7.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="25.0" prefWidth="25.0" text="&gt;" />
+      <Label fx:id="lCommand" layoutX="124.0" layoutY="5.0" prefHeight="25.0" prefWidth="256.0" text="Command" />
+   </children>
+</AnchorPane>
